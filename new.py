@@ -118,3 +118,55 @@ for i in range(5,0,-1):
     for k in range(0,i-1):
         print("*" , end = " ")
     print()
+
+
+# WAP TO GET THE FIBONACCI SERIES UPTO 10 NUMBERS
+
+a = 0
+b = 1
+print(a)
+print(b)
+
+for i in range(2,11):
+    c = a+b
+    a = b
+    b = c
+    print(c)
+
+
+# WAP TO CHECK IF A NUMBER IS PRIME OR NOT
+
+num = int(input("ENTER THE NUMBER TO CHECK IF IT IS PRIME OR NOT : "))
+
+if num <= 1 :
+    print("It is not a prime number ")
+else:
+    for i in range(2,num):
+        if num % i == 0:
+            print("NUMBER IS NOT PRIME NUMBER")
+            break
+        else:
+            print("IT IS A PRIME NUMBER")
+
+
+# WAP TO CHECK A NUMBER IS PALINDROME OR NOT
+
+num = int(input("enter the number : "))
+temp = num 
+rev = 0
+
+while(num>0):
+    dig = num % 10
+    rev = rev * 10 + dig
+    num = num // 10
+
+if rev == temp:
+    print("IT IS PALINDROME")
+else :
+    print("IT IS NOT A PALINDROME")
+
+
+# WAP TO SEPERATE THE FOLLOWING STRING INTO , SEPERATED VALUES
+
+a = ("00TD.YOLO.ASAP.BRB.GTG.OTW")
+print(a.split("."))
