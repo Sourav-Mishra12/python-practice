@@ -170,3 +170,9 @@ else :
 
 a = ("00TD.YOLO.ASAP.BRB.GTG.OTW")
 print(a.split("."))
+
+# WAP TO SORT STRING ALPHABETICALLY 
+
+user = input("enter the sentence to be sorted alphabetically : ")
+print(sorted(user))
+
