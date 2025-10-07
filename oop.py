@@ -83,27 +83,112 @@ class User_info:
           # and in order to make it private completely just add double underscore in the prefix
           self.password = password
 
+     @property
+     def email(self):
+          print("email accessed")  #pythonic way
+          return self._email
+     
+     @email.setter
+     def email(self,new_email):
+          if "@" in new_email :
+               self.email = new_email
+          
+
      
      def get_email(self):  # getter method
            print(f"email accessed at :  {datetime.now()}")   
            return self._email
      
-     def set_email(self,new_email):
+     def set_email(self,new_email):  # setter method
           if "@" in new_email:
            self._email = new_email
           else :
                print("error")
      
-user1 = User_info("soumo" , "soumo890@gmail.com" , "hhjji890")
+user1 = User_info("soumo" , "soumo890@gmail.com" , "879697")
  
 print(user1.get_email())
 
-user1.set_email("yrushh@gsnvs")
-print(user1.get_email())
+print(user1.email)
 
 
 # Name mangling in Python is a mechanism that changes the name of class attributes that are prefixed with double underscores (__) to make them harder to access from outside the class. It’s used to avoid naming conflicts in subclasses and enforce a stronger sense of "private" access.
 # it is not for true security though 
 
 # the "consenting adults" philosophy
+
+
+# static attributes
+
+# A Static attribute (sometimes called as a class attribute) is an attribute that belongs to the class itself , not to any specific instance of the class.
+
+# tracking the number of the objects that are created from a class
+
+class user:
+     user_count = 0   #static attribute
+
+     def __init__(self,username,email):   # instance attribute
+          self.username = username
+          self.email = email
+          user.user_count += 1
+
+     def display_user(self):
+          print(f"username : {self.username} , Email : {self.email}")
+
+
+user1 = user("sourav" , "sourav2223@gmail.com")
+user2 = user("srishti" , "srishti123@gmail.com")
+
+print(user.user_count)
+print(user1.user_count)
+print(user2.user_count)
+
+# instance attributes are unique to each object and are accssessd within a class , theyre ideal for storing user specific data
+
+# static attributes are shared among all objects of the class and can be accessed with class name . attribute name theyre ideal for storing data that needs to be specific across all instances
+
+# static methods 
+
+# a static method in python is a method that belongs to  the class itself rather than any instance of the class
+
+# to define a static method we use the '@staticmethod' decorator
+
+# both types of methods are stored in the class
+
+class BankAccount :
+     MIN_BALANCE = 100
+     balance = 0
+
+
+     def __init__(self,owner,balance):
+          self.owner =owner
+          self._balance = balance
+
+     def deposit(self , amount):
+          if self._is_valid_amount(amount) :
+               self._balance += amount
+               self.__log_transaction("deposit" , amount)
+
+          else:
+               print("deposit amount must be positive")
+     
+
+     def __log_transaction(self,transaction_type,amount):
+          print(f"logging the {transaction_type} of ${amount} . new balance is {self._balance}")
+
+     def _is_valid_amount(self,amount):  # protected method
+          return amount > 0 
+
+     @staticmethod
+     def is_valid_interest_rate(rate):
+        if 0 <= rate <= 5:
+          return True
+               
+
+
+account = BankAccount("sourav" , 1000)
+account.deposit(200)
+
+print(BankAccount.is_valid_interest_rate(3))
+
 
