@@ -1,5 +1,7 @@
 from flask import Flask , render_template , request , redirect
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from collections import defaultdict
 import os
 
 app = Flask(__name__)
@@ -15,16 +17,21 @@ class Expense(db.Model):
     id = db.Column(db.Integer , primary_key = True)
     category = db.Column(db.String(50) , nullable = False )
     amount = db.Column(db.Float, nullable = False)
+    date = db.Column(db.DateTime, default=datetime.now)
+    VALID_CATEGORIES = ["Food", "Travel", "Shopping", "Bills", "Others"]
 
     def __repr__(self):
-        return f"<EXPENSE {self.category} - {self.amount}>"
+        return f"<EXPENSE {self.category} - {self.amount} - {self.date}>"
     
 
 @app.route("/")
 def index():
     expenses = Expense.query.all()
     total = sum(exp.amount for exp in expenses)
-    return render_template("index.html" , expenses = expenses , total = total )
+
+    show_more = len(expenses) > 6 
+    first_six  = expenses[:6] 
+    return render_template("index.html" , expenses = first_six , total = total , show_more=show_more)
 
 
 @app.route("/add" , methods = ["POST"])
@@ -39,10 +46,17 @@ def add_expense():
 
 @app.route("/delete/<int:id>")
 def delete_expense(id):
-    if Expense:
-        db.session.delete(Expense)
-        db.session.commit()
+    expense = Expense.query.get_or_404(id)  
+    if expense:
+     db.session.delete(expense)
+     db.session.commit()
     return redirect("/")
+
+@app.route("/all")
+def all_expenses():
+    expenses = Expense.query.order_by(Expense.date.desc()).all()
+    total = sum(exp.amount for exp in expenses)
+    return render_template("all_expenses.html", expenses=expenses, total=total)
 
 
 if __name__ == "__main__":

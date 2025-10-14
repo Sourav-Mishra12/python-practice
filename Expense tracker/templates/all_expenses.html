@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Expenses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>💰 All Expenses</h1>
+
+    <div class="container">
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+            {% for exp in expenses %}
+            <tr>
+                <td>{{ exp.category }}</td>
+                <td>₹{{ "%.2f"|format(exp.amount) }}</td>
+                <td>{{ exp.date.strftime("%d-%m-%Y %H:%M") }}</td>
+                <td>
+                    <a href="/delete/{{ exp.id }}" onclick="return confirmDelete();">❌ Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="total-box">
+            Total: ₹{{ "%.2f"|format(total) }}
+        </div>
+
+        <a href="{{ url_for('index') }}">
+            <button>Back</button>
+        </a>
+    </div>
+
+    <script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this expense?");
+    }
+    </script>
+</body>
+</html>
