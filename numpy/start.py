@@ -113,7 +113,7 @@ print(np.sum(arr1) , axis=1) # axis is 1 it means we are applying it to all the 
 # FILTERING = refers to the process of selecting elements from an array that match a given condition
 
 ages = np.array([[21 , 22 , 34 , 23 , 19],
-                 [39,22,15,99,18,19,20,21]])
+                 [39,22,15,99.56]])
 
 teenagers  = ages[ages < 18]
 adults = ages[(ages >= 25) & (ages < 65)]
@@ -149,5 +149,5 @@ rng.shuffle(arrayy)
 print(arrayy)
 
 fruits = np.array(['apple' , 'orange' , 'coconut' ,'pineapple' ])
-fruit = rng.choice()
+fruit = rng.choice(fruits)
 print(fruit)
