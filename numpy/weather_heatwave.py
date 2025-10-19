@@ -15,7 +15,7 @@ print("HEATWAVE DAYS IN THIS MONTH (TEMP > 30) : ",heatwave_days)
 num_heatwave = np.count_nonzero(heatwave_days)
 print("NUMBER OF HEATWAVE DAYS : " , num_heatwave)
 
-heatwave_mask = temps > 30  # made for np.where as it only reads the boolean values
+heatwave_mask = temps > 30  # made for np.where as it only reads the boolean values (boolean masking)
 
 plt.figure(figsize=(11,4))
 
