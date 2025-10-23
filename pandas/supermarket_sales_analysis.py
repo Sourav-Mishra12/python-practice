@@ -47,3 +47,4 @@ sales_by_days = df.groupby('date')['sales'].sum().sort_values(ascending=False)
 
 sales_by_hour = df.groupby('hour')['sales'].sum()
 print(sales_by_hour)
+
