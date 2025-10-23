@@ -113,5 +113,15 @@ print(df)
 # the process of fixing / removing incomplete , incorrect or irrelevant data. 757 of work done with pandas is data cleaning
 
 # df = df.drop(columns = ["height"]) this drops the columns
+
 # df = df.dropna(subset = ["type2"])  to drop missing values
+
 # df = df.fillna({"column_name":"replacing_name"})  to fill the missing values
+
+# df["columnname"] = df["colname"].replace({"grass": "GRASS"}) # fix incosistent values
+
+# df["name"]=df["name"].str.lower() standardize text
+
+# df["salary"]=df["salary"].astype(bool)  # fix data types
+
+# df = df.drop_duplicates()  to drop duplicates
