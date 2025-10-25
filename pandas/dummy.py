@@ -1,7 +1,9 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 df = pd.read_csv("client_sales_data.csv")
-#print(df)
+print(df)
 #print(df.info())
 #print(df.describe())
 #print(df.dtypes)
@@ -30,6 +32,8 @@ highest_city = df.groupby('City')['TotalAmount'].sum().sort_values(ascending=Fal
 
 # delhi is the city where most of the revenue lies in its about 6500 rupees
 
-product_performance_by_city = df.groupby(['City','Product'])['TotalAmount'].sum().sort_values(ascending=False)
-print(product_performance_by_city)
+grouped = df.groupby(['Product','City'])['TotalAmount'].sum().reset_index()
+#print(grouped)
 
+best_products = grouped.loc[grouped.groupby('City')['TotalAmount'].idxmax()]
+print(best_products)
