@@ -37,3 +37,38 @@ grouped = df.groupby(['Product','City'])['TotalAmount'].sum().reset_index()
 
 best_products = grouped.loc[grouped.groupby('City')['TotalAmount'].idxmax()]
 print(best_products)
+
+# FOR TOP PRODUCTS BY REVENUE
+
+plt.figure(figsize=(8,5))
+highest_revenue.plot(kind = 'bar' , color='lightgray')
+plt.title('TOP PRODUCTS BY TOTAL REVENUE ', fontsize=13)
+plt.ylabel('TOTAL REVENUE')
+plt.xlabel('PRODUCTS',weight='bold')
+plt.xticks(rotation=20)
+plt.tight_layout()
+plt.show()
+
+
+# TOP CATEGORIES BY REVENUE
+
+plt.figure(figsize=(6,4))
+highest_category.plot(kind='bar',color='lightgreen')
+plt.title('TOP CATEGORIES BY TOTAL REVENUE',fontsize=13,fontweight='bold')
+plt.ylabel('TOTAL REVENUE')
+plt.xlabel('CATEGORIES',weight='bold')
+plt.xticks(rotation=10)
+plt.tight_layout()
+plt.show()
+
+
+# TOP CITIES BY REVENUE
+
+plt.figure(figsize=(6,4))
+highest_city.plot(kind='bar',color='lightgray',edgecolor='black')
+plt.title("TOP CITIES BY TOTAL REVENUE")
+plt.ylabel('TOTAL REVENUE')
+plt.xlabel('CITY',weight='bold')
+plt.xticks(rotation=20)
+plt.tight_layout()
+plt.show()
