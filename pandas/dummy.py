@@ -38,10 +38,22 @@ grouped = df.groupby(['Product','City'])['TotalAmount'].sum().reset_index()
 best_products = grouped.loc[grouped.groupby('City')['TotalAmount'].idxmax()]
 print(best_products)
 
+# AVERAGE ORDER VALUE
+
+avg_ord_value= df['TotalAmount'].mean()
+print(f"AVERAGE ORDER VALUE : {avg_ord_value:.2f}")
+
+
+# CUSTOMER SEGMENTATION 
+
+segment = df.groupby(['City','Category'])['TotalAmount'].sum().unstack()
+segment.plot(kind='bar',stacked=True)
+
+
 # FOR TOP PRODUCTS BY REVENUE
 
 plt.figure(figsize=(8,5))
-highest_revenue.plot(kind = 'bar' , color='lightgray')
+highest_revenue.plot(kind = 'bar' , color='lightgray',edgecolor='black')
 plt.title('TOP PRODUCTS BY TOTAL REVENUE ', fontsize=13)
 plt.ylabel('TOTAL REVENUE')
 plt.xlabel('PRODUCTS',weight='bold')
@@ -53,7 +65,7 @@ plt.show()
 # TOP CATEGORIES BY REVENUE
 
 plt.figure(figsize=(6,4))
-highest_category.plot(kind='bar',color='lightgreen')
+highest_category.plot(kind='bar',color='lightgreen',edgecolor='black')
 plt.title('TOP CATEGORIES BY TOTAL REVENUE',fontsize=13,fontweight='bold')
 plt.ylabel('TOTAL REVENUE')
 plt.xlabel('CATEGORIES',weight='bold')
@@ -72,3 +84,18 @@ plt.xlabel('CITY',weight='bold')
 plt.xticks(rotation=20)
 plt.tight_layout()
 plt.show()
+
+
+# BEST PRODUCT PER CITY
+
+plt.figure(figsize=(8,5))
+plt.bar(best_products['City'],best_products['TotalAmount'],color='coral',edgecolor='black')
+for i , val in enumerate(best_products['TotalAmount']):
+    plt.text(i,val+100,best_products['Product'].iloc[i], ha='center',fontsize=9)
+plt.title('BEST SELLING PRODUCT PER CITY',fontsize=13)
+plt.ylabel('REVENUE')
+plt.xlabel('CITY',weight='bold')
+plt.tight_layout()
+plt.show()
+
+
