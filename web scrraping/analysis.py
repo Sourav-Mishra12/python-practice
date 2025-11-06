@@ -1,6 +1,7 @@
 import pandas as pd
 from itertools import chain
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 df = pd.read_csv("quotes.csv")
 
@@ -44,7 +45,43 @@ print("Average number of tags used per quote : " , round(df["Tag_count"].mean())
 
 # checking which author uses the most tags on an average
 
-author_tag_stats = round(df.groupby("Author")["Tag_count"].mean().sort_values(ascending=False))
+author_tag_stats = df.groupby("Author")["Tag_count"].mean().sort_values(ascending=False)
 
 print("\n THE TOP 10 AUTHOR WHO USES THE MOST TAGS ON AN AVERAGE\n")
 print(author_tag_stats.head(10))
+
+
+# which authors are most associated with life tag
+
+# def has_tag(tag_list, tag_name):
+#     return tag_name in tag_list
+
+# df["has_life_tag"] = df["Tags"].apply(lambda x: has_tag(x, "life"))
+
+# life_authors = (
+#     df[df["has_life_tag"]]
+#     ["Author"]
+#     .value_counts()
+#     .head(10)
+# )
+# print("Top authors with the 'life' tag:")
+# print(life_authors)
+
+
+# quick summary ones
+
+print("UNIQUE AUTHORS : " , df["Author"].nunique())
+print("UNIQUE TAGS : ", len(tag_counts) )
+print("TOTAL QUOTES : ", len(df))
+
+
+
+# VISUALISATION
+
+sns.barplot(x=df["Author"].value_counts().head(10).values,
+            y=df["Author"].value_counts().head(10).index)
+plt.title("Top 10 Authors by Quotes")
+plt.xlabel("Count")
+plt.ylabel("Author")
+plt.tight_layout()
+plt.show()
