@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import pandas as pd
+import openpyxl 
 
 
 base_url = "https://books.toscrape.com/catalogue/page-{}.html"
@@ -57,6 +58,6 @@ while True :
 
 
 df = pd.DataFrame(all_books)
-df.to_csv("all_books.csv" , index=False , encoding="utf-8-sig")
-
+#df.to_csv("all_books.csv" , index=False , encoding="utf-8-sig")
+df.to_excel("all_books.xlsx" , index=False)
 print(f" SAVED {len(df)} books to all_books.csv ")
